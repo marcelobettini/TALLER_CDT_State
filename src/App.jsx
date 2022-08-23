@@ -1,34 +1,37 @@
-import { useEffect, useReducer } from 'react';
-import pokemonReducer from './reducer/pokemonReducer';
-import pokemonContext from './context/pokemonContext';
-import './App.css'
-import PokemonFilter from './components/PokemonFilter';
-import PokemonInfo from './components/PokemonInfo';
-import PokemonTable from './components/PokemonTable';
+import { useEffect, useReducer } from "react";
+import pokemonReducer from "./reducer/pokemonReducer";
+import pokemonContext from "./context/pokemonContext";
+import "./App.css";
+import PokemonFilter from "./components/PokemonFilter";
+import PokemonInfo from "./components/PokemonInfo";
+import PokemonTable from "./components/PokemonTable";
+import { actions } from "./actions/pokemonActions";
 
 function App() {
   const [state, dispatch] = useReducer(pokemonReducer, {
     data: [],
-    filter: '',
-    selectedPokemon: null
-  })
+    filter: "",
+    selectedPokemon: null,
+  });
 
   useEffect(() => {
     fetch("http://localhost:3000/pokemon.json")
-      .then(res => res.json())
-      .then(json => dispatch({
-        type: 'set_data',
-        payload: json,
-      }))
-  }, [])
+      .then((res) => res.json())
+      .then((json) =>
+        dispatch({
+          type: actions.set_data,
+          payload: json,
+        })
+      );
+  }, []);
 
-  { if (!state.data) return <div>fetching bichitos...</div> }
+  {
+    if (!state.data) return <div>fetching bichitos...</div>;
+  }
   // { if (error) return <div>{error.message}</div> }
-
 
   return (
     <pokemonContext.Provider value={{ state, dispatch }}>
-
       <div
         style={{
           margin: "auto",
@@ -42,7 +45,7 @@ function App() {
         <div
           style={{
             display: "grid",
-            alignItems: 'center',
+            alignItems: "center",
             gridTemplateColumns: "80% 20%",
             gap: "2rem",
           }}
@@ -57,7 +60,7 @@ function App() {
         </div>
       </div>
     </pokemonContext.Provider>
-  )
+  );
 }
 
-export default App
+export default App;

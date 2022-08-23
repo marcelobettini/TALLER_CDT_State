@@ -1,26 +1,27 @@
+import { actions } from "../actions/pokemonActions";
 
 //todo: asignar a constantes...
 
 const pokemonReducer = (state, action) => {
   switch (action.type) {
-    case 'set_filter':
+    case actions.set_filter:
       return {
         ...state,
-        filter: action.payload
-      }
-    case 'set_data':
+        filter: action.payload,
+      };
+    case actions.set_data:
       return {
         ...state,
-        data: action.payload
-      }
-    case 'set_selected_pokemon':
+        data: action.payload,
+      };
+    case actions.set_selected_pokemon:
       return {
         ...state,
-        selectedPokemon: action.payload
-      }
+        selectedPokemon: action.payload,
+      };
     default:
-      return state
+      return state;
   }
-}
+};
 
-export default pokemonReducer
+export default pokemonReducer;
